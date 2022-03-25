@@ -1,15 +1,14 @@
+const { sortBy } = require("./util")
 //at:arrived time
 //wt:waiting time
 //dt:delivery time
 //st:starting time
 //et: end time
+//adt: average delivered time
+//awt: average wait time
 const fcfs = (ps, { report = true } = {}) => {
     const processes = JSON.parse(JSON.stringify(ps))
-    const thread = processes.sort((a, b) => {
-        if (a.at > b.at) return 1;
-        if (a.at < b.at) return -1;
-        return 0;
-    })
+    const thread = sortBy(processes, 'at')
     if (!report) return thread
     const firstProcess = thread[0]
     firstProcess.ex = {
